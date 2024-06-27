@@ -7,8 +7,10 @@ import torchvision.transforms as transforms
 import os
 import base64
 import gdown
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 device = "cpu"
 
 file_id = '1lSAWay1qKiHNu0EiON1ROxmEwd5GgRhT'
