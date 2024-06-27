@@ -5,6 +5,7 @@ import torch
 from PIL import Image, ImageEnhance
 import torchvision.transforms as transforms
 import os
+import io
 import base64
 import gdown
 from flask_cors import CORS
@@ -102,8 +103,12 @@ def analyze_wound():
         step_size = 256
         segmented_image = segment_image(trained_deeplab, image, window_size, step_size)
         overlay_image_mask = overlay_mask_onto_image(segmented_image, image)
-        overlay_image_mask_enc = overlay_image_mask.tobytes()
-        encoded_image = base64.b64encode(overlay_image_mask_enc).decode()
+      #  overlay_image_mask_enc = overlay_image_mask.tobytes()
+    #    encoded_image = base64.b64encode(overlay_image_mask_enc).decode()
+        buffer = io.BytesIO()
+        overlay_image_mask.save(buffer, format="PNG")
+        buffer.seek(0)
+        encoded_image = base64.b64encode(buffer.read()).decode('utf-8')
         # plt.imshow(overlay_image_mask)
         # plt.title('Wound Segmented Image')
         # plt.axis('off')
