@@ -8,7 +8,6 @@ import io
 import base64
 import gdown
 from flask_cors import CORS
-import matplotlib.pyplot as plt
  
 app = Flask(__name__)
 CORS(app)
